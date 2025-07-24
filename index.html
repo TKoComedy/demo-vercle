@@ -84,7 +84,7 @@
 </head>
 <body>
     <div class="particles" id="particles"></div>
-    <h1>卢本伟晚上8：00请准时开直播</h1>
+    <h1>卢本伟<div id="time"></div>请准时开直播</h1>
 
     <script>
         // 创建粒子效果
@@ -119,8 +119,23 @@
             }
         }
         
-        // 页面加载后创建粒子
-        window.onload = createParticles;
+        // 计算一小时后的时间
+        function getTimeOneHourLater() {
+            const now = new Date();
+            now.setHours(now.getHours() + 1); // 增加1小时
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+      
+        
+        // 页面加载后创建粒子并显示时间
+        window.onload = function() {
+            createParticles();
+            document.getElementById('time').textContent = getTimeOneHourLater();
+        };
     </script>
 </body>
 </html>
