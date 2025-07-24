@@ -16,11 +16,11 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
         }
         
         body {
             font-family: 'Arial Black', 'Microsoft YaHei', sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: white;
             display: flex;
             justify-content: center;
@@ -31,6 +31,7 @@
             left: 0;
             right: 0;
             bottom: 0;
+            overflow: hidden;
         }
         
         /* 装饰元素 */
@@ -68,10 +69,12 @@
         
         /* 直播卡片容器 */
         .container {
-            width: 100%;
-            height: 100%;
+            width: 95%;
+            max-width: 800px;
+            height: auto;
+            min-height: 90vh;
             background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
+            padding: 30px 20px;
             box-shadow: 0 15px 35px rgba(255, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             position: relative;
@@ -82,6 +85,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            border-radius: 20px;
+            margin: 20px auto;
         }
         
         /* 标题样式 */
@@ -90,10 +95,12 @@
             margin-bottom: 20px;
             position: relative;
             z-index: 2;
+            width: 100%;
+            padding: 0 10px;
         }
         
         .title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             text-shadow: 0 0 10px #ff0000, 
                          0 0 20px #ff0000, 
                          0 0 30px #ff0000;
@@ -107,6 +114,8 @@
             margin: 15px 0;
             letter-spacing: 2px;
             text-transform: uppercase;
+            white-space: nowrap;
+            overflow: hidden;
         }
         
         .title::after {
@@ -117,10 +126,11 @@
         
         .name {
             color: #ff0000;
-            font-size: 4.5rem;
+            font-size: 4rem;
             text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
             margin: 15px 0;
             letter-spacing: 3px;
+            padding: 0 10px;
         }
         
         /* 倒计时样式 */
@@ -130,6 +140,9 @@
             gap: 15px;
             margin: 20px 0;
             flex-wrap: wrap;
+            width: 100%;
+            max-width: 500px;
+            padding: 0 10px;
         }
         
         .countdown-item {
@@ -142,6 +155,8 @@
             position: relative;
             overflow: hidden;
             transform: translateZ(20px);
+            flex: 1;
+            min-width: 90px;
         }
         
         .countdown-item::before {
@@ -176,6 +191,8 @@
             font-size: 1.2rem;
             color: rgba(255, 255, 255, 0.9);
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+            padding: 0 15px;
+            width: 100%;
         }
         
         .highlight {
@@ -190,17 +207,23 @@
             gap: 15px;
             margin: 20px 0;
             flex-wrap: wrap;
+            width: 100%;
+            max-width: 600px;
+            padding: 0 10px;
         }
         
         .platform {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            padding: 10px 20px;
+            padding: 10px 15px;
             display: flex;
             align-items: center;
             gap: 8px;
             transition: all 0.3s ease;
             cursor: pointer;
+            flex: 1;
+            min-width: 140px;
+            max-width: 180px;
         }
         
         .platform:hover {
@@ -217,23 +240,27 @@
         .subscribe {
             text-align: center;
             margin-top: 20px;
-            padding: 10px;
+            padding: 15px;
             background: rgba(255, 0, 0, 0.1);
             border-radius: 10px;
             animation: pulse-bg 2s infinite alternate;
+            width: 90%;
+            max-width: 400px;
         }
         
         .subscribe-btn {
             background: linear-gradient(45deg, #ff0000, #ff6b6b);
             color: white;
             border: none;
-            padding: 10px 25px;
-            font-size: 1rem;
+            padding: 12px 30px;
+            font-size: 1.1rem;
             border-radius: 50px;
-            margin-top: 10px;
+            margin-top: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+            width: 100%;
+            max-width: 200px;
         }
         
         .subscribe-btn:hover {
@@ -306,20 +333,56 @@
             }
         }
         
+        /* 鼠标光点效果 */
+        .light-spot {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            opacity: 0.5;
+            filter: blur(30px);
+        }
+        
+        /* 鼠标悬停效果 */
+        .hover-effect {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s;
+            filter: blur(40px);
+        }
+        
         /* 响应式设计 */
         @media (max-width: 768px) {
+            .container {
+                width: 98%;
+                min-height: 95vh;
+                padding: 20px 10px;
+            }
+            
             .title {
-                font-size: 2.5rem;
-                padding: 10px;
+                font-size: 2rem;
+                padding: 12px;
             }
             
             .name {
-                font-size: 3rem;
+                font-size: 2.8rem;
             }
             
             .countdown-item {
                 width: 80px;
-                padding: 10px;
+                padding: 12px;
+                min-width: 70px;
             }
             
             .countdown-value {
@@ -327,17 +390,58 @@
             }
             
             .platform {
-                padding: 8px 15px;
+                padding: 8px 12px;
                 font-size: 0.9rem;
+                min-width: 120px;
             }
             
             .platform i {
                 font-size: 1.2rem;
             }
+            
+            .info {
+                font-size: 1rem;
+            }
+            
+            .subscribe {
+                padding: 12px;
+            }
+            
+            .subscribe-btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.7rem;
+                padding: 10px;
+            }
+            
+            .name {
+                font-size: 2.3rem;
+            }
+            
+            .countdown-item {
+                min-width: 65px;
+                padding: 10px;
+            }
+            
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+            
+            .platform {
+                min-width: 100px;
+                padding: 6px 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="light-spot" id="light-spot"></div>
+    <div class="hover-effect" id="hover-effect"></div>
     <div class="particles" id="particles"></div>
     
     <div class="decoration">
@@ -346,7 +450,7 @@
         <div class="circle"></div>
     </div>
     
-    <div class="container">
+    <div class="container" id="container">
         <div class="title-container">
             <div class="title">直播倒计时</div>
             <div class="name">卢本伟</div>
@@ -486,11 +590,56 @@
             }, 1000);
             
             // 添加鼠标移动效果
-            const container = document.querySelector('.container');
+            const container = document.getElementById('container');
+            const lightSpot = document.getElementById('light-spot');
+            const hoverEffect = document.getElementById('hover-effect');
+            
+            // 鼠标移动效果
             document.addEventListener('mousemove', (e) => {
+                // 容器3D旋转效果
                 const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
                 const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
                 container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+                
+                // 光点跟随鼠标
+                lightSpot.style.left = `${e.pageX}px`;
+                lightSpot.style.top = `${e.pageY}px`;
+                
+                // 装饰圆环视差效果
+                const circles = document.querySelectorAll('.circle');
+                circles.forEach((circle, index) => {
+                    const factor = 0.2 * (index + 1);
+                    circle.style.transform = `translate(-50%, -50%) rotateX(${-yAxis * factor}deg) rotateY(${-xAxis * factor}deg)`;
+                });
+            });
+            
+            // 鼠标悬停效果
+            document.querySelectorAll('.platform, .subscribe-btn, .countdown-item, .title').forEach(item => {
+                item.addEventListener('mouseenter', (e) => {
+                    const rect = e.target.getBoundingClientRect();
+                    hoverEffect.style.left = `${rect.left + rect.width/2}px`;
+                    hoverEffect.style.top = `${rect.top + rect.height/2}px`;
+                    hoverEffect.style.opacity = '0.7';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    hoverEffect.style.opacity = '0';
+                });
+            });
+            
+            // 添加点击涟漪效果
+            document.querySelectorAll('.platform, .subscribe-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    ripple.style.left = `${e.offsetX}px`;
+                    ripple.style.top = `${e.offsetY}px`;
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
             });
         };
     </script>
