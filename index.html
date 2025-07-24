@@ -1,41 +1,247 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>开直播，懂？</title>
-    <style type="text/css">
-        body {
-            font-family: 'Arial Black', Gadget, sans-serif;
-            background-color: #121212;
-            color: #fff;
-            height: 100vh;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卢本伟直播倒计时</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
             overflow: hidden;
         }
         
-        h1 {
-            font-size: 3.5rem;
+        body {
+            font-family: 'Arial Black', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        /* 装饰元素 */
+        .decoration {
+            position: absolute;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 3s infinite alternate;
+        }
+        
+        .circle:nth-child(2) {
+            width: 500px;
+            height: 500px;
+            animation-delay: 0.5s;
+        }
+        
+        .circle:nth-child(3) {
+            width: 700px;
+            height: 700px;
+            animation-delay: 1s;
+        }
+        
+        /* 直播卡片容器 */
+        .container {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            box-shadow: 0 15px 35px rgba(255, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform-style: preserve-3d;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 标题样式 */
+        .title-container {
             text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .title {
+            font-size: 3.5rem;
             text-shadow: 0 0 10px #ff0000, 
                          0 0 20px #ff0000, 
                          0 0 30px #ff0000;
             animation: pulse 1.5s infinite alternate, 
                        shake 0.5s infinite alternate;
-            padding: 20px;
+            padding: 15px;
             border: 3px solid #ff0000;
             border-radius: 15px;
             background-color: rgba(0, 0, 0, 0.7);
             position: relative;
+            margin: 15px 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
         
-        h1::after {
+        .title::after {
             content: "!!!";
             position: absolute;
             animation: blink 1s step-end infinite;
         }
         
+        .name {
+            color: #ff0000;
+            font-size: 4.5rem;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+            margin: 15px 0;
+            letter-spacing: 3px;
+        }
+        
+        /* 倒计时样式 */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .countdown-item {
+            background: rgba(255, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            width: 100px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            transform: translateZ(20px);
+        }
+        
+        .countdown-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff0000, transparent);
+            animation: shine 3s infinite;
+        }
+        
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+        }
+        
+        .countdown-label {
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        /* 直播信息 */
+        .info {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        }
+        
+        .highlight {
+            color: #ff0000;
+            font-weight: bold;
+        }
+        
+        /* 直播平台 */
+        .platforms {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .platform {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .platform:hover {
+            background: rgba(255, 0, 0, 0.3);
+            transform: translateY(-5px);
+        }
+        
+        .platform i {
+            font-size: 1.5rem;
+            color: #ff0000;
+        }
+        
+        /* 订阅提醒 */
+        .subscribe {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            animation: pulse-bg 2s infinite alternate;
+        }
+        
+        .subscribe-btn {
+            background: linear-gradient(45deg, #ff0000, #ff6b6b);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 50px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+        
+        .subscribe-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.6);
+        }
+        
+        /* 动画定义 */
         @keyframes pulse {
             from {
                 transform: scale(1);
@@ -43,7 +249,7 @@
             }
             to {
                 transform: scale(1.05);
-                box-shadow: 0 0 20px #ff0000;
+                box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
             }
         }
         
@@ -61,11 +267,30 @@
             50% { opacity: 0; }
         }
         
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0.5deg); }
+            50% { transform: translateY(-10px) rotate(-0.5deg); }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes pulse-bg {
+            from { background: rgba(255, 0, 0, 0.1); }
+            to { background: rgba(255, 0, 0, 0.3); }
+        }
+        
+        /* 粒子效果容器 */
         .particles {
             position: absolute;
             width: 100%;
             height: 100%;
+            top: 0;
+            left: 0;
             z-index: -1;
+            overflow: hidden;
         }
         
         .particle {
@@ -80,24 +305,114 @@
                 transform: translateY(-100vh);
             }
         }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+                padding: 10px;
+            }
+            
+            .name {
+                font-size: 3rem;
+            }
+            
+            .countdown-item {
+                width: 80px;
+                padding: 10px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+            
+            .platform {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .platform i {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="particles" id="particles"></div>
-    <h1>卢本伟<div id="time"></div>请准时开直播</h1>
+    
+    <div class="decoration">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+    </div>
+    
+    <div class="container">
+        <div class="title-container">
+            <div class="title">直播倒计时</div>
+            <div class="name">卢本伟</div>
+            <div class="title">请准时开直播</div>
+        </div>
+        
+        <div class="countdown">
+            <div class="countdown-item">
+                <div class="countdown-value" id="hours">00</div>
+                <div class="countdown-label">小时</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="minutes">00</div>
+                <div class="countdown-label">分钟</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="seconds">00</div>
+                <div class="countdown-label">秒钟</div>
+            </div>
+        </div>
+        
+        <div class="info">
+            开播时间: <span class="highlight" id="broadcast-time">19:00:00</span>
+        </div>
+        
+        <div class="info">
+            直播主题: <span class="highlight">刘涛猛攻！单三启动！</span>
+        </div>
+        
+        <div class="platforms">
+            <div class="platform">
+                <i class="fab fa-twitch"></i>
+                <span>Twitch直播</span>
+            </div>
+            <div class="platform">
+                <i class="fab fa-youtube"></i>
+                <span>YouTube直播</span>
+            </div>
+            <div class="platform">
+                <i class="fab fa-bilibili"></i>
+                <span>Bilibili直播</span>
+            </div>
+            <div class="platform">
+                <i class="fab fa-tiktok"></i>
+                <span>抖音直播</span>
+            </div>
+        </div>
+        
+        <div class="subscribe">
+            <p>开启直播提醒，不错过任何精彩瞬间！</p>
+            <button class="subscribe-btn">立即订阅</button>
+        </div>
+    </div>
 
     <script>
         // 创建粒子效果
         function createParticles() {
             const particles = document.getElementById('particles');
-            const particleCount = 50;
+            const particleCount = 100;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
                 // 随机大小
-                const size = Math.random() * 10 + 5;
+                const size = Math.random() * 8 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
@@ -115,26 +430,68 @@
                 // 随机透明度
                 particle.style.opacity = Math.random() * 0.5 + 0.1;
                 
+                // 随机颜色
+                const colors = ['#ff0000', '#ff5252', '#ff7b7b', '#ff9e9e'];
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
                 particles.appendChild(particle);
             }
         }
         
-        // 计算一小时后的时间
-        function getTimeOneHourLater() {
+        // 设置开播时间（一小时后）
+        function setBroadcastTime() {
             const now = new Date();
-            now.setHours(now.getHours() + 1); // 增加1小时
+            now.setHours(now.getHours() + 1);
             
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            return `${hours}:${minutes}:${seconds}`;
+            
+            document.getElementById('broadcast-time').textContent = `${hours}:${minutes}:${seconds}`;
+            return now;
         }
-      
         
-        // 页面加载后创建粒子并显示时间
+        // 更新倒计时
+        function updateCountdown(endTime) {
+            const now = new Date();
+            const diff = endTime - now;
+            
+            if (diff <= 0) {
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        // 页面加载后初始化
         window.onload = function() {
             createParticles();
-            document.getElementById('time').textContent = getTimeOneHourLater();
+            const broadcastTime = setBroadcastTime();
+            
+            // 初始更新
+            updateCountdown(broadcastTime);
+            
+            // 每秒更新一次倒计时
+            setInterval(() => {
+                updateCountdown(broadcastTime);
+            }, 1000);
+            
+            // 添加鼠标移动效果
+            const container = document.querySelector('.container');
+            document.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+                container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
         };
     </script>
 </body>
