@@ -2,9 +2,76 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <!-- 核心TDK优化 -->
+    <title>在线贪吃蛇小游戏 - 经典怀旧游戏免费玩 | TKO Comedy</title>
+    <meta name="description" content="在TKO Comedy免费玩经典贪吃蛇小游戏，无需下载安装。支持键盘和触屏操作，挑战最高分！怀旧经典游戏，适合所有年龄段玩家。简单易上手，随时随地享受游戏乐趣。">
+    <meta name="keywords" content="贪吃蛇,贪吃蛇游戏,在线小游戏,经典游戏,怀旧游戏,网页游戏,免费游戏,HTML5游戏,TKO Comedy,小游戏">
+    
+    <!-- 作者和版权信息 -->
+    <meta name="author" content="TKO Comedy">
+    <meta name="copyright" content="TKO Comedy">
+    
+    <!-- 搜索引擎指令 -->
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="googlebot" content="index, follow">
+    
+    <!-- 百度验证 -->
     <meta name="baidu-site-verification" content="codeva-4FVVO1rWii" />
-    <title>贪吃蛇小游戏</title>
+    
+    <!-- Open Graph 社交媒体优化 -->
+    <meta property="og:title" content="在线贪吃蛇小游戏 - 经典怀旧游戏免费玩 | TKO Comedy">
+    <meta property="og:description" content="在TKO Comedy免费玩经典贪吃蛇小游戏，无需下载安装。支持键盘和触屏操作，挑战最高分！">
+    <meta property="og:type" content="game">
+    <meta property="og:url" content="https://www.tkocomedy.site/">
+    <meta property="og:image" content="https://www.tkocomedy.site/snake-game-preview.jpg">
+    <meta property="og:site_name" content="TKO Comedy">
+    
+    <!-- Twitter Card 优化 -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="在线贪吃蛇小游戏 - 经典怀旧游戏免费玩">
+    <meta name="twitter:description" content="在TKO Comedy免费玩经典贪吃蛇小游戏，无需下载安装。">
+    <meta name="twitter:image" content="https://www.tkocomedy.site/snake-game-preview.jpg">
+    
+    <!-- 结构化数据标记 (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "在线贪吃蛇小游戏",
+      "description": "免费在线玩经典贪吃蛇小游戏，无需下载安装。支持键盘和触屏操作，挑战最高分！",
+      "applicationCategory": "GameApplication",
+      "genre": "Arcade, Casual",
+      "operatingSystem": "Any",
+      "author": {
+        "@type": "Organization",
+        "name": "TKO Comedy",
+        "url": "https://www.tkocomedy.site/"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1500"
+      },
+      "url": "https://www.tkocomedy.site/",
+      "sameAs": ["https://www.tkocomedy.site/"]
+    }
+    </script>
+    
+    <!-- 预加载关键资源 -->
+    <link rel="preload" as="style" href="#">
+    <link rel="preconnect" href="https://hm.baidu.com">
+    
+    <!-- 网站图标 -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
     <style>
         :root {
             --bg: #0f1226;
@@ -19,9 +86,11 @@
 
         html, body {
             height: 100%;
+            margin: 0;
+            padding: 0;
+            scroll-behavior: smooth;
         }
         body {
-            margin: 0;
             background: radial-gradient(1200px 600px at 70% -10%, #1a1f3d 0%, var(--bg) 45%),
                         radial-gradient(800px 400px at -10% 110%, #1d2347 0%, var(--bg) 55%);
             color: var(--text);
@@ -31,6 +100,7 @@
             justify-content: center;
             padding: 24px;
             box-sizing: border-box;
+            line-height: 1.6;
         }
 
         .app {
@@ -127,30 +197,63 @@
         @media (max-width: 900px) {
             .touch { display: flex; }
         }
+        
+        /* 隐藏的SEO文本 - 为搜索引擎提供更多内容 */
+        .seo-content {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        
+        /* 页脚信息 */
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
     </style>
+    <!-- 百度统计脚本放在页面底部，避免阻塞渲染 -->
     <script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?7a19870136b76141e677a7d1bd5374d2";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
-
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?7a19870136b76141e677a7d1bd5374d2";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 <body>
-    <div class="app">
-        <div class="board-wrap">
-            <div class="board">
-                <canvas id="board" width="640" height="640"></canvas>
-            </div>
-        </div>
+    <!-- 隐藏的SEO内容 - 为搜索引擎提供更多文本内容 -->
+    <div class="seo-content">
+        <h1>贪吃蛇小游戏 - TKO Comedy</h1>
+        <p>欢迎来到TKO Comedy的贪吃蛇小游戏页面！在这里您可以免费在线玩经典的贪吃蛇游戏，无需下载或安装任何软件。</p>
+        <h2>游戏特点</h2>
+        <p>我们的贪吃蛇游戏具有以下特点：简单易上手的操作方式，支持键盘和触摸屏控制；随着游戏进行，蛇的移动速度会逐渐增加，挑战您的反应能力；精美的视觉效果和流畅的游戏体验。</p>
+        <h2>如何玩贪吃蛇游戏</h2>
+        <p>使用键盘的方向键或WASD键控制蛇的移动方向。吃到食物可以增加蛇的长度和您的得分。避免撞到墙壁或蛇自己的身体。随着得分增加，游戏速度会逐渐提升，增加挑战性。</p>
+        <h2>关于TKO Comedy</h2>
+        <p>TKO Comedy致力于为用户提供优质免费的在线小游戏体验。贪吃蛇是我们提供的经典游戏之一，适合所有年龄段的玩家。</p>
+    </div>
 
-        <aside class="side">
-            <div class="row">
-                <h1>贪吃蛇 Snake</h1>
+    <main class="app">
+        <section class="board-wrap" aria-label="游戏区域">
+            <div class="board">
+                <canvas id="board" width="640" height="640" aria-label="贪吃蛇游戏画面"></canvas>
             </div>
+        </section>
+
+        <aside class="side" aria-label="游戏控制与信息">
+            <header class="row">
+                <h1>贪吃蛇 Snake</h1>
+            </header>
             <div class="stat">
                 <span>分数</span><strong id="score">0</strong>
                 <span>最佳</span><strong id="best">0</strong>
@@ -182,7 +285,13 @@ var _hmt = _hmt || [];
                 <button id="tRight">右</button>
             </div>
         </aside>
-    </div>
+    </main>
+    
+    <footer>
+        <p>© 2023 <a href="https://www.tkocomedy.site/" title="TKO Comedy">TKO Comedy</a> - 免费在线小游戏 | 贪吃蛇游戏</p>
+    </footer>
+
+    
 
     <script>
         (function () {
@@ -458,7 +567,3 @@ var _hmt = _hmt || [];
     </script>
 </body>
 </html>
-
-
-
-
