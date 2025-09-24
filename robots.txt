@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /vercel.json
+Disallow: /README.md
+
+Sitemap: https://www.tkocomedy.site/sitemap.xml
